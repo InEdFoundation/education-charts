@@ -9,72 +9,44 @@
 </head>
 
 <body>
-    <div style="text-align:center;">
-        <button onclick="renderMigrantData()">Migrant Data</button>
-        <button onclick="renderOntarioData()">Ontario Data</button>
-    </div>
     <canvas id="educationChart" width="400" height="400"></canvas>
 
     <script>
         var ctx = document.getElementById('educationChart').getContext('2d');
-        var chart;
+        var dataSets = [{
+            label: 'Migrant Students',
+            data: [1113, 938, 906, 759, 639, 598, 747, 628, 511, 641, 468, 387],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+            barPercentage: 0.5,
+            categoryPercentage: 0.5
+        }, {
+            label: 'Ontario Students',
+            data: [135995, 137035, 140910, 139920, 142070, 145180, 146390, 147335, 149150, 148460, 148855, 148855],
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            borderWidth: 1,
+            barPercentage: 0.5,
+            categoryPercentage: 0.5
+        }];
 
-        function renderMigrantData() {
-            if (chart) chart.destroy();
-
-            chart = new Chart(ctx, {
-                type: 'horizontalBar',
-                data: {
-                    labels: ['Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'],
-                    datasets: [{
-                        data: [1113, 938, 906, 759, 639, 598, 747, 628, 511, 641, 468, 387],
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        xAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                max: 1500
-                            }
-                        }]
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'],
+                datasets: dataSets
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 160000
                     }
                 }
-            });
-        }
-
-        function renderOntarioData() {
-            if (chart) chart.destroy();
-
-            chart = new Chart(ctx, {
-                type: 'horizontalBar',
-                data: {
-                    labels: ['Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'],
-                    datasets: [{
-                        data: [135995, 137035, 140910, 139920, 142070, 145180, 146390, 147335, 149150, 148460, 148855, 148855],
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        borderColor: 'rgba(153, 102, 255, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        xAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                max: 160000
-                            }
-                        }]
-                    }
-                }
-            });
-        }
-
-        // Default to showing migrant data on page load
-        renderMigrantData();
+            }
+        });
     </script>
 </body>
 

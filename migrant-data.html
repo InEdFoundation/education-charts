@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered Horizontal Bar Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div style="max-width: 600px; margin: auto;">
+        <canvas id="migrantChart"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('migrantChart').getContext('2d');
+        
+        const maxValue = 1113;
+        const studentData = [387, 468, 641, 511, 628, 747, 598, 639, 759, 906, 938, 1113];
+        const dummyData = studentData.map(value => (maxValue - value) / 2);
+
+        new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ['Grade 12', 'Grade 11', 'Grade 10', 'Grade 9', 'Grade 8', 'Grade 7', 'Grade 6', 'Grade 5', 'Grade 4', 'Grade 3', 'Grade 2', 'Grade 1'],
+                datasets: [{
+                    data: dummyData,
+                    backgroundColor: 'rgba(0, 0, 0, 0)', // Transparent
+                    hoverBackgroundColor: 'rgba(0, 0, 0, 0)', // Transparent on hover
+                    categoryPercentage: 1.0,
+                    barPercentage: 1.0
+                }, {
+                    data: studentData,
+                    backgroundColor: '#1f77b4',
+                    categoryPercentage: 1.0,
+                    barPercentage: 1.0
+                }, {
+                    data: dummyData,
+                    backgroundColor: 'rgba(0, 0, 0, 0)', // Transparent
+                    hoverBackgroundColor: 'rgba(0, 0, 0, 0)', // Transparent on hover
+                    categoryPercentage: 1.0,
+                    barPercentage: 1.0
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        stacked: true,
+                    },
+                    y: {
+                        stacked: true,
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

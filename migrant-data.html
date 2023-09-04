@@ -2,63 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centered Horizontal Bar Chart</title>
+    <title>Migrant vs Ontario Education Chart</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div style="max-width: 600px; margin: auto;">
-        <canvas id="migrantChart"></canvas>
-    </div>
 
-    <script>
-        const ctx = document.getElementById('migrantChart').getContext('2d');
-        
-        const maxValue = 1113;
-        const studentData = [387, 468, 641, 511, 628, 747, 598, 639, 759, 906, 938, 1113];
-        const dummyData = studentData.map(value => (maxValue - value) / 2);
+<canvas id="educationChart" width="800" height="600"></canvas>
 
-        new Chart(ctx, {
-            type: 'horizontalBar',
-            data: {
-                labels: ['Grade 12', 'Grade 11', 'Grade 10', 'Grade 9', 'Grade 8', 'Grade 7', 'Grade 6', 'Grade 5', 'Grade 4', 'Grade 3', 'Grade 2', 'Grade 1'],
-                datasets: [{
-                    data: dummyData,
-                    backgroundColor: 'rgba(0, 0, 0, 0)', // Transparent
-                    hoverBackgroundColor: 'rgba(0, 0, 0, 0)', // Transparent on hover
-                    categoryPercentage: 1.0,
-                    barPercentage: 1.0
-                }, {
-                    data: studentData,
-                    backgroundColor: '#1f77b4',
-                    categoryPercentage: 1.0,
-                    barPercentage: 1.0
-                }, {
-                    data: dummyData,
-                    backgroundColor: 'rgba(0, 0, 0, 0)', // Transparent
-                    hoverBackgroundColor: 'rgba(0, 0, 0, 0)', // Transparent on hover
-                    categoryPercentage: 1.0,
-                    barPercentage: 1.0
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        stacked: true,
-                    },
-                    y: {
-                        stacked: true,
+<script>
+    const ctx = document.getElementById('educationChart').getContext('2d');
+    const maxStudents = 150000; // a value slightly larger than the largest Ontario data point
+
+    new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+            labels: ['Grade 12', 'Grade 11', 'Grade 10', 'Grade 9', 'Grade 8', 'Grade 7', 'Grade 6', 'Grade 5', 'Grade 4', 'Grade 3', 'Grade 2', 'Grade 1'],
+            datasets: [{
+                label: 'Migrant Students',
+                data: [387, 468, 641, 511, 628, 747, 598, 639, 759, 906, 938, 1113],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Ontario Students',
+                data: [148855, 148855, 148460, 149150, 147335, 146390, 145180, 142070, 139920, 140910, 137035, 135995],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        // Ensure that bars are centered by starting from negative half of max value
+                        min: -maxStudents / 2,
+                        max: maxStudents
                     }
                 }
             }
-        });
-    </script>
+        }
+    });
+</script>
+
 </body>
 </html>

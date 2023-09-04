@@ -38,6 +38,12 @@
             stroke: #000;
             stroke-width: 2px;
         }
+        svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
     </style>
 </head>
 
@@ -46,22 +52,24 @@
     <button class="btn btn-migrant active" onclick="setActiveButton(this)">Migrant Student Data</button>
     <button class="btn" onclick="setActiveButton(this)">Ontario Student Data</button>
 
-    <svg width="600" height="400"></svg>
+    <svg></svg>
 
     <script>
+    
         const grades = ['Grade 12', 'Grade 11', 'Grade 10', 'Grade 9', 'Grade 8', 'Grade 7', 'Grade 6', 'Grade 5', 'Grade 4', 'Grade 3', 'Grade 2', 'Grade 1'];
         const migrantData = [387, 468, 641, 511, 628, 747, 598, 639, 759, 906, 938, 1113].map(d => d / 2);
         const ontarioData = [148855, 148855, 148460, 149150, 147335, 146390, 145180, 142070, 139920, 140910, 137035, 135995].map(d => d / 2);
-
+        
         const maxMigrantValue = Math.max(...migrantData);
         const maxOntarioValue = Math.max(...ontarioData);
         const xScaleMigrant = d3.scaleLinear().domain([0, maxMigrantValue]).range([0, 220]);
         const xScaleOntario = d3.scaleLinear().domain([0, maxOntarioValue]).range([0, 220]);
-
+        
         const svg = d3.select("svg");
-        const width = +svg.attr("width");
-        const height = +svg.attr("height");
-
+        const width = 600;  // default width as per your initial SVG declaration
+        const height = 400; // default height as per your initial SVG declaration
+        svg.attr("viewBox", `0 0 ${width} ${height}`);
+        
         const yScale = d3.scaleBand()
             .domain(grades)
             .range([20, height - 20])
